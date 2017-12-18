@@ -19,6 +19,7 @@ module Webpack
         paths = paths.select { |p| p.ends_with? ".#{extension}" } if extension
 
         port = ::Rails.configuration.webpack.dev_server.port
+        port = instance_eval(&port) if port.respond_to?(:call)
         protocol = ::Rails.configuration.webpack.dev_server.https ? 'https' : 'http'
 
         host = ::Rails.configuration.webpack.dev_server.host
